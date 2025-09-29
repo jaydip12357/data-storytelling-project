@@ -1,7 +1,3 @@
-"""
-Author: Ethan Dominic
-"""
-
 import pandas as pd
 
 def print_dimensions(df):
