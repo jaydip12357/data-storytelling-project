@@ -20,6 +20,10 @@ def print_dimensions(df):
     print("Columns:", df.shape[1])
 
 def clean_rows(df, row_threshold=0.05):
+    """
+    Keep removing rows until there are no columns whose numbers of missing values are less than row_threshold% of the 
+    total sample size.
+    """
     rows_cleaned_df = df
     while True:
         rows_to_remove = get_cols_with_low_missing_vals(rows_cleaned_df, threshold=row_threshold)
@@ -33,6 +37,7 @@ def clean_rows(df, row_threshold=0.05):
             rows_cleaned_df = rows_cleaned_df_candid
 
 def clean_cols(df, col_threshold=0.20):
+    """Remove columns whose has greater than col_threshold% missingness."""
     cols_to_remove = get_cols_with_high_missing_vals(df, col_threshold)
     cols_cleaned_df = df.drop(columns=cols_to_remove)
     return cols_cleaned_df
@@ -63,7 +68,7 @@ def clean_df(df, df_name, row_threshold=0.10, col_threshold=0.20):
     return cols_cleaned_df
 
 def retrieve_general_patient_stats(raw_data_df):
-    # Return a fully cleaned version of the raw data DataFrame
+    """Return a fully cleaned version of the raw data DataFrame (which will effectively serve as the general patient stats)."""
     return clean_df(raw_data_df, "General Patients Stats")
 
 def retrieve_patients_alive_both_times_stats(raw_data_df):
